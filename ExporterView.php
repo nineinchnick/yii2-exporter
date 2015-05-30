@@ -124,13 +124,6 @@ abstract class ExporterView extends GridView
         }
     }
 
-    public function init()
-    {
-        parent::init();
-
-        $this->initColumns();
-    }
-
     /**
      * @inheritdoc
      * This method is made public to allow calling without full init from a CLI controller.
@@ -140,7 +133,6 @@ abstract class ExporterView extends GridView
         if (empty($this->columns)) {
             $this->guessColumns();
         }
-        $id = $this->getId();
         foreach ($this->columns as $i => $column) {
             if (is_string($column)) {
                 $column = $this->createDataColumn($column);
@@ -156,9 +148,6 @@ abstract class ExporterView extends GridView
                 continue;
             } else {
                 $column->visible = true;
-            }
-            if ($column->id === null) {
-                $column->id = $id . '_c' . $i;
             }
             $this->columns[$i] = $column;
         }
